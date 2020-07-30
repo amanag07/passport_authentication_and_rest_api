@@ -1,19 +1,47 @@
 const express = require('express')
 const mongoose = require('mongoose')
-// require('dotenv/config');
+const passport = require('passport')
+const ejs = require('ejs')
+const session = require('express-session')
+const flash = require('connect-flash')
+const initPassport = require('./config/passport-config')
+
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.urlencoded({extended: true }));
-app.use(express.json());
+initPassport(passport)
 
-const postRoute = require('./routes/posts') 
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({extended: false }));
+app.use(express.json());
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+}))
+app.use(flash())
+
+// Global variables
+app.use((req,res,next) => {
+    res.locals.success = req.flash('success')
+    res.locals.error = req.flash('error')
+    res.locals.log_out = req.flash('log_out')
+    res.locals.warning = req.flash('warning')
+    res.locals.email_exist = req.flash('email_exist')
+    next()
+})
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const postRoute = require('./routes/posts')
+const userRoute = require('./routes/users')
 
 // MIDDLEWARE
-
 app.use('/posts',postRoute);
+app.use('/',userRoute);
 
 
 // ROUTES

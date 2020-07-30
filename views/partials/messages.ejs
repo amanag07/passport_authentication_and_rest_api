@@ -1,0 +1,30 @@
+<% if(success != '') { %>
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong> <%= success %></strong>
+</div>
+<% } %>
+<% if(log_out != '') { %>
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong> <%= log_out %></strong>
+</div>
+<% } %>
+<% if(warning!= '') { %>
+<div class="alert alert-dismissible alert-primary">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong> <%= warning %></strong>
+</div>
+<% } %>
+<% if(error!= '') { %>
+<div class="alert alert-dismissible alert-primary">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong> <%= error %></strong>
+</div>
+<% } %>
+<% if(email_exist!= '') { %>
+<div class="alert alert-dismissible alert-primary">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong> <%= email_exist %></strong>
+</div>
+<% } %>
